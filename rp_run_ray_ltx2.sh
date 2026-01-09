@@ -24,7 +24,7 @@ if [ ! -d "/workspace/ComfyUI/custom_nodes/ComfyUI-KJNodes" ]; then
 fi
 
 if [ ! -d "/workspace/ComfyUI/custom_nodes/ComfyUI-LTXVideo" ]; then
-  git clone https://github.com/kijai/ComfyUI-LTXVideo /workspace/ComfyUI/custom_nodes/ComfyUI-LTXVideo
+  git clone https://github.com/Lightricks/ComfyUI-LTXVideo /workspace/ComfyUI/custom_nodes/ComfyUI-LTXVideo
   pip install -r /workspace/ComfyUI/custom_nodes/ComfyUI-LTXVideo/requirements.txt
 fi
 
