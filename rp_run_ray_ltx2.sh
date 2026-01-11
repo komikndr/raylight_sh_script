@@ -40,8 +40,8 @@ wget -O /workspace/ComfyUI/models/diffusion_models/ltx-2-19b-distilled-fp8_trans
 wget -O /workspace/ComfyUI/models/text_encoders/gemma_3_12B_it_fp8_e4m3fn.safetensors \
   "https://huggingface.co/GitMylo/LTX-2-comfy_gemma_fp8_e4m3fn/resolve/main/gemma_3_12B_it_fp8_e4m3fn.safetensors?download=true" &
 
-wget -O /workspace/ComfyUI/models/text_encoders/ltx-2-19b-embeddings_connector_bf16.safetensors \
-  "https://huggingface.co/Kijai/LTXV2_comfy/resolve/main/text_encoders/ltx-2-19b-embeddings_connector_bf16.safetensors?download=true" &
+wget -O /workspace/ComfyUI/models/text_encoders/ltx-2-19b-embeddings_connector_dev_bf16.safetensors \
+  "https://huggingface.co/Kijai/LTXV2_comfy/resolve/main/text_encoders/ltx-2-19b-embeddings_connector_dev_bf16.safetensors?download=true" &
 
 wget -O /workspace/ComfyUI/models/vae/LTX2_audio_vae_bf16.safetensors \
   "https://huggingface.co/Kijai/LTXV2_comfy/resolve/main/VAE/LTX2_audio_vae_bf16.safetensors?download=true" &
