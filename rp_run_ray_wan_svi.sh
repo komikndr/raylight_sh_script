@@ -18,6 +18,11 @@ if [ ! -d "/workspace/ComfyUI/custom_nodes/ComfyUI-Easy-Use" ]; then
   pip install -r /workspace/ComfyUI/custom_nodes/ComfyUI-Easy-Use/requirements.txt
 fi
 
+if [ ! -d "/workspace/ComfyUI/custom_nodes/ComfyUI-KJNodes" ]; then
+  git clone https://github.com/kijai/ComfyUI-KJNodes /workspace/ComfyUI/custom_nodes/ComfyUI-KJNodes
+  pip install -r /workspace/ComfyUI/custom_nodes/ComfyUI-KJNodes/requirements.txt
+fi
+
 mkdir -p /workspace/ComfyUI/models/diffusion_models \
          /workspace/ComfyUI/models/text_encoders \
          /workspace/ComfyUI/models/vae
