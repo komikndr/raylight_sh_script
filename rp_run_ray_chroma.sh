@@ -26,7 +26,7 @@ wget -O /workspace/ComfyUI/models/diffusion_models/radiance.safetensors \
   "https://huggingface.co/lodestones/Chroma1-Radiance/resolve/main/Chroma1-Radiance-v0.4.safetensors?download=true"
 
 wget -O /workspace/ComfyUI/models/diffusion_models/chroma.safetensors \
-  "https://huggingface.co/silveroxides/Chroma1-HD-fp8-scaled/resolve/main/Chroma1-HD-fp8_scaled_original_hybrid_large_rev1.safetensors?download=true"
+  "https://huggingface.co/silveroxides/Chroma1-HD-fp8-scaled/resolve/main/Chroma1-HD-fp8mixed-final.safetensors?download=true"
 
 wget -O /workspace/ComfyUI/models/text_encoders/clip_l.safetensors \
   "https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/clip_l.safetensors?download=true"
