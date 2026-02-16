@@ -28,8 +28,8 @@ wget -O /workspace/ComfyUI/models/diffusion_models/radiance.safetensors \
 wget -O /workspace/ComfyUI/models/diffusion_models/chroma.safetensors \
   "https://huggingface.co/silveroxides/Chroma1-HD-fp8-scaled/resolve/main/Chroma1-HD-fp8mixed-final.safetensors?download=true"
 
-wget -O /workspace/ComfyUI/models/text_encoders/clip_l.safetensors \
-  "https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/clip_l.safetensors?download=true"
+wget -O /workspace/ComfyUI/models/text_encoders/t5xxl.safetensors \
+  "https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/t5xxl_fp8_e4m3fn.safetensors"
 
 wget -O /workspace/ComfyUI/models/vae/ae.safetensors \
   "https://huggingface.co/Kijai/flux-fp8/resolve/main/flux-vae-bf16.safetensors?download=true"
