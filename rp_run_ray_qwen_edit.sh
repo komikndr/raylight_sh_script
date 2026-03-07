@@ -15,6 +15,7 @@ if [ ! -d "/workspace/ComfyUI/custom_nodes/raylight" ]; then
   pip install -r requirements.txt
 fi
 
+
 if [ ! -d "/workspace/ComfyUI/custom_nodes/ComfyUI-Easy-Use" ]; then
   git clone https://github.com/yolain/ComfyUI-Easy-Use /workspace/ComfyUI/custom_nodes/ComfyUI-Easy-Use
   pip install -r /workspace/ComfyUI/custom_nodes/ComfyUI-Easy-Use/requirements.txt
@@ -22,18 +23,19 @@ fi
 
 mkdir -p /workspace/ComfyUI/models/diffusion_models \
          /workspace/ComfyUI/models/text_encoders \
-         /workspace/ComfyUI/models/vae
+         /workspace/ComfyUI/models/vae \
+         /workspace/ComfyUI/models/loras
 
-wget -O /workspace/ComfyUI/models/diffusion_models/Kandinsky-5.0-I2V-Lite-5s.safetensors \
-  "https://huggingface.co/kandinskylab/Kandinsky-5.0-I2V-Lite-5s/resolve/main/model/kandinsky5lite_i2v_5s.safetensors?download=true" &
+wget -O /workspace/ComfyUI/models/diffusion_models/qwen_edit.safetensors \
+  "https://huggingface.co/Comfy-Org/Qwen-Image-Edit_ComfyUI/resolve/main/split_files/diffusion_models/qwen_image_edit_2511_fp8mixed.safetensors?download=true" &
 
 wget -O /workspace/ComfyUI/models/text_encoders/qwen_vl.safetensors \
   "https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/text_encoders/qwen_2.5_vl_7b_fp8_scaled.safetensors" &
 
-wget -O /workspace/ComfyUI/models/text_encoders/clip_l.safetensors \
-  "https://huggingface.co/Comfy-Org/HunyuanVideo_repackaged/resolve/main/split_files/text_encoders/clip_l.safetensors?download=true" &
+wget -O /workspace/ComfyUI/models/vae/qwen_vae.safetensors \
+  "https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/main/split_files/vae/qwen_image_vae.safetensors" &
 
-wget -O /workspace/ComfyUI/models/vae/hunyuan_vae.safetensors \
-  "https://huggingface.co/Comfy-Org/HunyuanVideo_repackaged/resolve/main/split_files/vae/hunyuan_video_vae_bf16.safetensors?download=true" &
+wget -O /workspace/ComfyUI/models/loras/qwen_edit_lightning.safetensors \
+  "https://huggingface.co/lightx2v/Qwen-Image-Edit-2511-Lightning/resolve/main/Qwen-Image-Edit-2511-Lightning-4steps-V1.0-bf16.safetensors?download=true" &
 
 wait

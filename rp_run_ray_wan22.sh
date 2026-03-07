@@ -10,7 +10,9 @@ fi
 
 if [ ! -d "/workspace/ComfyUI/custom_nodes/raylight" ]; then
   git clone https://github.com/komikndr/raylight /workspace/ComfyUI/custom_nodes/raylight
-  pip install -r /workspace/ComfyUI/custom_nodes/raylight/requirements.txt
+  cd /workspace/ComfyUI/custom_nodes/raylight
+  git checkout dev
+  pip install -r requirements.txt
 fi
 
 if [ ! -d "/workspace/ComfyUI/custom_nodes/ComfyUI-Easy-Use" ]; then
