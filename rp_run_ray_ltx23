@@ -43,6 +43,12 @@ wget -O /workspace/ComfyUI/models/text_encoders/gemma_3_12B_it_fp8_e4m3fn.safete
 wget -O /workspace/ComfyUI/models/text_encoders/ltx-2.3_text_projection_bf16.safetensors \
   "https://huggingface.co/Kijai/LTX2.3_comfy/resolve/main/text_encoders/ltx-2.3_text_projection_bf16.safetensors?download=true" &
 
+wget -O /workspace/ComfyUI/models/loras/ltx-2.3-22b-distilled-lora-dynamic_fro09_avg_rank_105_bf16.safetensors \
+  "https://huggingface.co/Kijai/LTX2.3_comfy/resolve/main/loras/ltx-2.3-22b-distilled-lora-dynamic_fro09_avg_rank_105_bf16.safetensors?download=true" &
+
+wget -O /workspace/ComfyUI/models/latent_upscale_models/ltx-2.3-spatial-upscaler-x2-1.1.safetensors \
+  "https://huggingface.co/Lightricks/LTX-2.3/resolve/main/ltx-2.3-spatial-upscaler-x2-1.1.safetensors?download=true" &
+
 wget -O /workspace/ComfyUI/models/vae/LTX23_audio_vae_bf16.safetensors \
   "https://huggingface.co/Kijai/LTX2.3_comfy/resolve/main/vae/LTX23_audio_vae_bf16.safetensors?download=true" &
 
