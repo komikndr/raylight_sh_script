@@ -1,0 +1,3 @@
+diffusion_models/minimax_h3_image_pruned_int8_convrot.safetensors https://huggingface.co/Comfy-Org/MiniMax-H3-Image/resolve/main/diffusion_models/minimax_h3_image_pruned_int8_convrot.safetensors
+vae/minimax_h3_image_vae_fp16.safetensors https://huggingface.co/Comfy-Org/MiniMax-H3-Image/resolve/main/vae/minimax_h3_image_vae_fp16.safetensors
+text_encoders/qwen3vl_32b_minimax_h3_int8_convrot.safetensors https://huggingface.co/Comfy-Org/MiniMax-H3/resolve/main/text_encoders/qwen3vl_32b_minimax_h3_int8_convrot.safetensors

@@ -1,0 +1,2 @@
+checkpoints/ltx-2-19b-distilled.safetensors https://huggingface.co/Lightricks/LTX-2/resolve/main/ltx-2-19b-distilled.safetensors
+text_encoders/gemma_3_12B_it_fp4_mixed.safetensors https://huggingface.co/Comfy-Org/ltx-2/resolve/main/split_files/text_encoders/gemma_3_12B_it_fp4_mixed.safetensors

@@ -1,0 +1,2 @@
+text_encoders/gemma_2_2b_it_elm_bf16.safetensors https://huggingface.co/Comfy-Org/PixelDiT/resolve/main/text_encoders/gemma_2_2b_it_elm_bf16.safetensors
+diffusion_models/pixeldit_1300m_1024px_bf16.safetensors https://huggingface.co/Comfy-Org/PixelDiT/resolve/main/diffusion_models/pixeldit_1300m_1024px_bf16.safetensors

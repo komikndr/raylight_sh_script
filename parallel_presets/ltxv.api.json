@@ -1,0 +1,16 @@
+{
+  "1": {"class_type":"RayInitializer","inputs":{"ray_cluster_address":"local","ray_cluster_namespace":"raylight-runpod","GPU":2,"ulysses_degree":2,"ring_degree":1,"cfg_degree":1,"dp_degree":1,"sync_ulysses":false,"clear_vram_after_sampling":false,"FSDP":false,"FSDP_CPU_OFFLOAD":false,"XFuser_attention":"TORCH_EFFICIENT","skip_comm_test":false,"use_mmap":false}},
+  "2": {"class_type":"RayUNETLoader","inputs":{"ray_actors_init":["1",0],"unet_name":"ltx-video-2b-v0.9.safetensors","weight_dtype":"default"}},
+  "3": {"class_type":"CheckpointLoaderSimple","inputs":{"ckpt_name":"ltx-video-2b-v0.9.safetensors"}},
+  "4": {"class_type":"CLIPLoader","inputs":{"clip_name":"t5xxl_fp16.safetensors","type":"ltxv","device":"default"}},
+  "5": {"class_type":"CLIPTextEncode","inputs":{"clip":["4",0],"text":"A red fox walking beside a frozen waterfall at sunrise, fine snow drifting through the air."}},
+  "6": {"class_type":"CLIPTextEncode","inputs":{"clip":["4",0],"text":"blurry, low quality, distorted, oversaturated, flickering"}},
+  "7": {"class_type":"LTXVConditioning","inputs":{"positive":["5",0],"negative":["6",0],"frame_rate":25}},
+  "8": {"class_type":"EmptyLTXVLatentVideo","inputs":{"width":768,"height":512,"length":97,"batch_size":1}},
+  "9": {"class_type":"KSamplerSelect","inputs":{"sampler_name":"euler"}},
+  "10": {"class_type":"LTXVScheduler","inputs":{"steps":30,"max_shift":2.05,"base_shift":0.95,"stretch":true,"terminal":0.1,"latent":["8",0]}},
+  "11": {"class_type":"XFuserSamplerCustom","inputs":{"ray_actors":["2",0],"positive":["7",0],"negative":["7",1],"latent_image":["8",0],"noise_seed":42,"cfg":3,"add_noise":true,"sampler":["9",0],"sigmas":["10",0]}},
+  "12": {"class_type":"VAEDecode","inputs":{"samples":["11",0],"vae":["3",2]}},
+  "13": {"class_type":"CreateVideo","inputs":{"images":["12",0],"fps":24}},
+  "14": {"class_type":"SaveVideo","inputs":{"video":["13",0],"filename_prefix":"raylight_runpod/ltxv","format":"auto","codec":"auto"}}
+}

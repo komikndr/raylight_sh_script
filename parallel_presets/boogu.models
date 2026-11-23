@@ -1,0 +1,3 @@
+vae/ae.safetensors https://huggingface.co/Comfy-Org/HiDream-I1_ComfyUI/resolve/main/split_files/vae/ae.safetensors?download=true
+diffusion_models/boogu_image_turbo_fp8_scaled.safetensors https://huggingface.co/Comfy-Org/Boogu-Image/resolve/main/diffusion_models/boogu_image_turbo_fp8_scaled.safetensors
+text_encoders/qwen3vl_8b_fp8_scaled.safetensors https://huggingface.co/Comfy-Org/Boogu-Image/resolve/main/text_encoders/qwen3vl_8b_fp8_scaled.safetensors

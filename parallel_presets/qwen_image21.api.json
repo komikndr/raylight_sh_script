@@ -1,0 +1,13 @@
+{
+  "1": {"class_type":"RayInitializer","inputs":{"ray_cluster_address":"local","ray_cluster_namespace":"raylight-runpod","GPU":2,"ulysses_degree":2,"ring_degree":1,"cfg_degree":1,"dp_degree":1,"sync_ulysses":false,"clear_vram_after_sampling":false,"FSDP":false,"FSDP_CPU_OFFLOAD":false,"XFuser_attention":"TORCH_EFFICIENT","skip_comm_test":false,"use_mmap":false}},
+  "2": {"class_type":"RayUNETLoader","inputs":{"ray_actors_init":["1",0],"unet_name":"qwen_image_2.1_turbo_int8_convrot.safetensors","weight_dtype":"default"}},
+  "3": {"class_type":"CLIPLoader","inputs":{"type":"qwen_image","device":"default","clip_name":"qwen3vl_8b_int8_convrot.safetensors"}},
+  "4": {"class_type":"VAELoader","inputs":{"vae_name":"qwen_image_2.1_vae_bf16.safetensors"}},
+  "5": {"class_type":"TextEncodeQwenImage21","inputs":{"clip":["3",0],"prompt":"A red fox standing in fresh snow at sunrise.","negative_prompt":"","resolution":1024}},
+  "6": {"class_type":"EmptyLatentImage","inputs":{"width":1032,"height":1032,"batch_size":1}},
+  "7": {"class_type":"ManualSigmas","inputs":{"sigmas":"1.0, 0.978453, 0.95418, 0.926626, 0.89508, 0.845148, 0.704534, 0.414568, 0"}},
+  "8": {"class_type":"KSamplerSelect","inputs":{"sampler_name":"euler"}},
+  "9": {"class_type":"XFuserSamplerCustom","inputs":{"ray_actors":["2",0],"positive":["5",0],"negative":["5",1],"cfg":1,"sampler":["8",0],"sigmas":["7",0],"latent_image":["6",0],"add_noise":true,"noise_seed":42}},
+  "10": {"class_type":"VAEDecode","inputs":{"samples":["9",0],"vae":["4",0]}},
+  "11": {"class_type":"SaveImage","inputs":{"images":["10",0],"filename_prefix":"raylight_runpod/qwen_image21"}}
+}

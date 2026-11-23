@@ -1,0 +1,3 @@
+vae/flux2-vae_small.safetensors https://huggingface.co/Comfy-Org/MOSS-Image/resolve/main/vae/flux2-vae_small.safetensors
+diffusion_models/moss_image_sft_int8_convrot.safetensors https://huggingface.co/Comfy-Org/MOSS-Image/resolve/main/diffusion_models/moss_image_sft_int8_convrot.safetensors
+text_encoders/qwen3.5_9b_w4a8_gptq.safetensors https://huggingface.co/Comfy-Org/MOSS-Image/resolve/main/text_encoders/qwen3.5_9b_w4a8_gptq.safetensors

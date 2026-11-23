@@ -1,0 +1,15 @@
+{
+  "1": {"class_type":"RayInitializer","inputs":{"ray_cluster_address":"local","ray_cluster_namespace":"raylight-runpod","GPU":2,"ulysses_degree":2,"ring_degree":1,"cfg_degree":1,"dp_degree":1,"sync_ulysses":false,"clear_vram_after_sampling":false,"FSDP":false,"FSDP_CPU_OFFLOAD":false,"XFuser_attention":"TORCH_EFFICIENT","skip_comm_test":false,"use_mmap":false}},
+  "2": {"class_type":"RayUNETLoader","inputs":{"ray_actors_init":["1",0],"unet_name":"omnigen2_fp16.safetensors","weight_dtype":"default"}},
+  "3": {"class_type":"CLIPLoader","inputs":{"clip_name":"qwen_2.5_vl_fp16.safetensors","type":"omnigen2","device":"default"}},
+  "4": {"class_type":"CLIPTextEncode","inputs":{"clip":["3",0],"text":"A red fox walking beside a frozen waterfall at sunrise, fine snow drifting through the air."}},
+  "5": {"class_type":"CLIPTextEncode","inputs":{"clip":["3",0],"text":"blurry, low quality, distorted, ugly, bad anatomy, deformed, poorly drawn"}},
+  "6": {"class_type":"EmptySD3LatentImage","inputs":{"width":1024,"height":1024,"batch_size":1}},
+  "7": {"class_type":"KSamplerSelect","inputs":{"sampler_name":"euler"}},
+  "8": {"class_type":"RayBasicScheduler","inputs":{"ray_actors":["2",0],"scheduler":"simple","steps":20,"denoise":1}},
+  "9": {"class_type":"RayDualCFGGuider","inputs":{"ray_actors":["2",0],"cond1":["4",0],"cond2":["5",0],"negative":["5",0],"cfg_conds":5,"cfg_cond2_negative":2,"style":"regular"}},
+  "10": {"class_type":"XFuserSamplerCustomAdvanced","inputs":{"add_noise":true,"noise_seed":42,"guider":["9",0],"sampler":["7",0],"sigmas":["8",0],"latent_image":["6",0]}},
+  "11": {"class_type":"VAELoader","inputs":{"vae_name":"ae.safetensors"}},
+  "12": {"class_type":"VAEDecode","inputs":{"samples":["10",0],"vae":["11",0]}},
+  "13": {"class_type":"SaveImage","inputs":{"images":["12",0],"filename_prefix":"raylight_runpod/omnigen2"}}
+}

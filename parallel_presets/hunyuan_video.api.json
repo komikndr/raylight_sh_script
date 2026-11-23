@@ -1,0 +1,15 @@
+{
+  "1": {"class_type":"RayInitializer","inputs":{"ray_cluster_address":"local","ray_cluster_namespace":"raylight-runpod","GPU":2,"ulysses_degree":2,"ring_degree":1,"cfg_degree":1,"dp_degree":1,"sync_ulysses":false,"clear_vram_after_sampling":false,"FSDP":false,"FSDP_CPU_OFFLOAD":false,"XFuser_attention":"TORCH_EFFICIENT","skip_comm_test":false,"use_mmap":false}},
+  "2": {"class_type":"RayUNETLoader","inputs":{"ray_actors_init":["1",0],"unet_name":"hunyuan_video_t2v_720p_bf16.safetensors","weight_dtype":"default"}},
+  "3": {"class_type":"RayModelSamplingSD3","inputs":{"ray_actors":["2",0],"shift":7}},
+  "4": {"class_type":"DualCLIPLoader","inputs":{"type":"hunyuan_video","device":"default","clip_name1":"clip_l.safetensors","clip_name2":"llava_llama3_fp8_scaled.safetensors"}},
+  "5": {"class_type":"VAELoader","inputs":{"vae_name":"hunyuan_video_vae_bf16.safetensors"}},
+  "6": {"class_type":"CLIPTextEncode","inputs":{"clip":["4",0],"text":"A red fox standing in fresh snow at sunrise."}},
+  "7": {"class_type":"CLIPTextEncode","inputs":{"clip":["4",0],"text":""}},
+  "8": {"class_type":"FluxGuidance","inputs":{"conditioning":["6",0],"guidance":6}},
+  "9": {"class_type":"EmptyHunyuanLatentVideo","inputs":{"width":832,"height":480,"length":33,"batch_size":1}},
+  "10": {"class_type":"XFuserKSamplerAdvanced","inputs":{"ray_actors":["3",0],"positive":["8",0],"negative":["7",0],"latent_image":["9",0],"noise_seed":42,"cfg":1,"add_noise":"enable","steps":20,"sampler_name":"euler","scheduler":"simple","start_at_step":0,"end_at_step":20,"return_with_leftover_noise":"disable","denoise":1}},
+  "11": {"class_type":"VAEDecode","inputs":{"samples":["10",0],"vae":["5",0]}},
+  "12": {"class_type":"CreateVideo","inputs":{"images":["11",0],"fps":24}},
+  "13": {"class_type":"SaveVideo","inputs":{"video":["12",0],"filename_prefix":"raylight_runpod/hunyuan_video","format":"auto","codec":"auto"}}
+}
