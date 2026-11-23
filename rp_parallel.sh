@@ -5,7 +5,7 @@ set -euo pipefail
 # setup              install ComfyUI and the selected Raylight checkout on the pod
 # check [manifest]   report missing/incomplete files without network or GPU access
 # fetch [manifest]   download only missing files (resume .part files)
-# run [api.json]    start a private Comfy backend and wait for this job's result
+# run [api.json] [--fsdp]  start a private Comfy backend and wait for the result
 here=$(cd "$(dirname "$0")" && pwd)
 comfy=${COMFY_DIR:-/workspace/ComfyUI}
 manifest=${2:-"$here/parallel_presets/flux3.models"}
@@ -63,7 +63,20 @@ PY
     exit "$missing"
     ;;
 run)
-    workflow=${2:-"$here/parallel_presets/flux3.api.json"}
+    shift
+    workflow=
+    fsdp=0
+    for arg in "$@"; do
+        case $arg in
+            --fsdp) fsdp=1 ;;
+            -*) echo "Unknown run option: $arg" >&2; exit 2 ;;
+            *)
+                [[ -z $workflow ]] || { echo "Only one workflow can be run at a time." >&2; exit 2; }
+                workflow=$arg
+                ;;
+        esac
+    done
+    workflow=${workflow:-"$here/parallel_presets/flux3.api.json"}
     [[ -r $workflow ]] || { echo "Missing API workflow: $workflow" >&2; exit 1; }
     [[ $(git -C "$raylight" branch --show-current) == "$ref" ]] || {
         echo "Expected $ref in $raylight; select or copy that checkout before running." >&2; exit 1;
@@ -82,11 +95,11 @@ PY
     python -u "$comfy/main.py" --listen 127.0.0.1 --port "$port" --cache-none >"$log" 2>&1 &
     server=$!
     trap 'kill "$server" 2>/dev/null || true; wait "$server" 2>/dev/null || true' EXIT
-    python - "$workflow" "$port" "$server" "$log" <<'PY'
+    python - "$workflow" "$port" "$server" "$log" "$fsdp" <<'PY'
 import json, os, sys, time, urllib.error, urllib.request
 from pathlib import Path
 
-workflow, port, pid, log = sys.argv[1:]
+workflow, port, pid, log, fsdp = sys.argv[1:]
 base = f"http://127.0.0.1:{port}"
 def request(path, payload=None):
     data = None if payload is None else json.dumps(payload).encode()
@@ -109,7 +122,9 @@ for inputs in inits:
     r = int(os.getenv("RING", inputs["ring_degree"]))
     inputs.update(ulysses_degree=u, ring_degree=r,
                   GPU=u*r*max(1, inputs["cfg_degree"])*max(1, inputs.get("dp_degree", 1)))
-    print(f"Raylight: {inputs['GPU']} GPUs, Ulysses={u}, ring={r}", flush=True)
+    if fsdp == "1":
+        inputs["FSDP"] = True
+    print(f"Raylight: {inputs['GPU']} GPUs, Ulysses={u}, ring={r}, FSDP={inputs.get('FSDP', False)}", flush=True)
 for n in graph.values():
     kind = n["class_type"]
     inputs = n["inputs"]
@@ -152,7 +167,7 @@ help|-h|--help)
 Run from any directory on a 2-GPU pod:
   bash "$here/rp_parallel.sh" setup
   bash "$here/rp_parallel.sh" fetch "$here/parallel_presets/wan21.models"
-  bash "$here/rp_parallel.sh" run "$here/parallel_presets/wan21.api.json"
+  bash "$here/rp_parallel.sh" run "$here/parallel_presets/wan21.api.json" --fsdp
 
 Copy the local fix_uneven_padding Raylight checkout into
 $raylight first, or set RAYLIGHT_BRANCH to a published branch.
